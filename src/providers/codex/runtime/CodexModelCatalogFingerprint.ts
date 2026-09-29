@@ -59,8 +59,8 @@ export async function computeCodexCatalogFingerprint(
     executionTarget.distroName ?? '',
   ].join(':');
   const envText = getRuntimeEnvironmentText(settings, 'codex');
-  const profile = getCodexProviderSettings(settings).profile;
-  const envHash = computeCodexEnvHash(envText, profile ? { profile } : {});
+  const modelProvider = getCodexProviderSettings(settings).modelProvider;
+  const envHash = computeCodexEnvHash(envText, modelProvider ? { modelProvider } : {});
 
   return buildCodexCatalogFingerprint({
     resolvedCliCommand,

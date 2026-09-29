@@ -57,10 +57,10 @@ export function buildCodexLaunchSpec(
   }
 
   const resolvedCliCommand = options.resolvedCliCommand?.trim() || 'codex';
-  const profile = getCodexProviderSettings(options.settings).profile;
+  const modelProvider = getCodexProviderSettings(options.settings).modelProvider;
   const cliArgs = options.cliArgs ?? [
-    ...(profile ? ['--profile', profile] : []),
     ...CODEX_APP_SERVER_ARGS,
+    ...(modelProvider ? ['--config', `model_provider=${JSON.stringify(modelProvider)}`] : []),
   ];
   if (target.method === 'wsl') {
     const args = [

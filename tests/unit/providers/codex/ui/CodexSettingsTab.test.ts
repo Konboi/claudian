@@ -456,16 +456,16 @@ describe('CodexSettingsTab', () => {
     expect(checkedDistro).toBe('Debian');
   });
 
-  it('stores the selected CLI profile through the Codex runtime transition', async () => {
+  it('stores the selected model provider through the Codex runtime transition', async () => {
     Object.defineProperty(process, 'platform', { value: 'darwin' });
     const plugin = createPlugin();
     createSettingsRenderer().render(createContainer(), createContext(plugin));
 
-    const input = findSetting('Codex profile').textComponents[0];
+    const input = findSetting('Codex model provider').textComponents[0];
     expect(input.value).toBe('');
-    await input.onChangeCallback?.(' personal ');
+    await input.onChangeCallback?.(' openai ');
 
-    expect(plugin.settings.providerConfigs.codex.profile).toBe('personal');
+    expect(plugin.settings.providerConfigs.codex.modelProvider).toBe('openai');
     expect(plugin.applyProviderRuntimeSettings).toHaveBeenCalledWith(
       ['codex'], expect.any(Function),
     );

@@ -304,9 +304,9 @@
       }
     },
     "codex": {
-      "profile": {
-        "name": "Codex 프로필",
-        "desc": "선택 사항인 CLI 프로필 이름입니다(예: personal). 채팅과 모델 검색에 --profile을 사용합니다. 비워 두면 CLI 기본값을 사용합니다."
+      "modelProvider": {
+        "name": "Codex 모델 공급자",
+        "desc": "선택 사항인 Codex 모델 공급자 ID입니다(예: openai). 채팅과 모델 검색에 적용됩니다. 비워 두면 CLI 기본값을 사용합니다."
       },
       "installationMethod": {
         "name": "설치 방식",

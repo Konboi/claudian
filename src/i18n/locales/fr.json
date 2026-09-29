@@ -304,9 +304,9 @@
       }
     },
     "codex": {
-      "profile": {
-        "name": "Profil Codex",
-        "desc": "Nom de profil CLI facultatif, par exemple personal. Les discussions et la recherche de modèles lancent Codex avec --profile. Laissez vide pour utiliser la valeur par défaut de la CLI."
+      "modelProvider": {
+        "name": "Fournisseur de modèles Codex",
+        "desc": "ID facultatif d’un fournisseur de modèles Codex, par exemple openai. S’applique aux discussions et à la recherche de modèles. Laissez vide pour utiliser la valeur par défaut de la CLI."
       },
       "installationMethod": {
         "name": "Méthode d’installation",

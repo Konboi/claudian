@@ -73,7 +73,7 @@ function getCodexRuntimeFingerprintState(settings: Record<string, unknown>): {
   const additionalInputs = {
     ...cliPathInputs,
     installationMethod: codexSettings.installationMethod,
-    ...(codexSettings.profile ? { profile: codexSettings.profile } : {}),
+    ...(codexSettings.modelProvider ? { modelProvider: codexSettings.modelProvider } : {}),
     wslDistroOverride: codexSettings.wslDistroOverride,
   };
   const environment = parseEnvironmentVariables(environmentText);
@@ -83,7 +83,7 @@ function getCodexRuntimeFingerprintState(settings: Record<string, unknown>): {
     hasFingerprintInputs: Boolean(
       hasCLIPathFingerprintInputs(cliPathInputs)
       || codexSettings.installationMethod === 'wsl'
-      || codexSettings.profile
+      || codexSettings.modelProvider
       || codexSettings.wslDistroOverride
       || ENV_HASH_KEYS.some(key => Object.prototype.hasOwnProperty.call(environment, key))
     ),

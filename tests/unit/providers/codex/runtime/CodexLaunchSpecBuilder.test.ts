@@ -44,8 +44,8 @@ describe('buildCodexLaunchSpec', () => {
     });
   });
 
-  it('starts the app server with the configured profile on native and WSL targets', () => {
-    const settings = { providerConfigs: { codex: { profile: 'personal' } } };
+  it('starts the app server with the configured model provider on native and WSL targets', () => {
+    const settings = { providerConfigs: { codex: { modelProvider: 'openai' } } };
     const native = buildCodexLaunchSpec({
       settings,
       resolvedCliCommand: 'codex',
@@ -61,10 +61,10 @@ describe('buildCodexLaunchSpec', () => {
       executionTarget: { method: 'wsl', platformFamily: 'unix', platformOs: 'linux', distroName: 'Ubuntu' },
     });
 
-    expect(native.args).toEqual(['--profile', 'personal', 'app-server', '--listen', 'stdio://']);
+    expect(native.args).toEqual(['app-server', '--listen', 'stdio://', '--config', 'model_provider="openai"']);
     expect(wsl.args).toEqual([
       '--distribution', 'Ubuntu', '--cd', '/mnt/c/repo', 'codex',
-      '--profile', 'personal', 'app-server', '--listen', 'stdio://',
+      'app-server', '--listen', 'stdio://', '--config', 'model_provider="openai"',
     ]);
   });
 

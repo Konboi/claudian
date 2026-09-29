@@ -304,9 +304,9 @@
       }
     },
     "codex": {
-      "profile": {
-        "name": "Codex 設定檔",
-        "desc": "選填的 CLI 設定檔名稱，例如 personal。聊天和模型探索會使用 --profile 啟動 Codex。留空則使用 CLI 預設值。"
+      "modelProvider": {
+        "name": "Codex 模型供應商",
+        "desc": "選填的 Codex 模型供應商 ID，例如 openai。適用於聊天和模型探索。留空則使用 CLI 預設值。"
       },
       "installationMethod": {
         "name": "安裝方式",

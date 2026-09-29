@@ -304,9 +304,9 @@
       }
     },
     "codex": {
-      "profile": {
-        "name": "Perfil de Codex",
-        "desc": "Nombre de perfil opcional de la CLI, por ejemplo personal. Los chats y la detección de modelos inician Codex con --profile. Déjalo vacío para usar el valor predeterminado de la CLI."
+      "modelProvider": {
+        "name": "Proveedor de modelos de Codex",
+        "desc": "ID opcional de un proveedor de modelos de Codex, como openai. Se aplica a los chats y a la detección de modelos. Déjalo vacío para usar el valor predeterminado de la CLI."
       },
       "installationMethod": {
         "name": "Método de instalación",

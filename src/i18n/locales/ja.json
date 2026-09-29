@@ -304,9 +304,9 @@
       }
     },
     "codex": {
-      "profile": {
-        "name": "Codex プロファイル",
-        "desc": "任意の CLI プロファイル名（例: personal）。チャットとモデル取得で --profile を指定して Codex を起動します。空欄なら CLI の既定値を使います。"
+      "modelProvider": {
+        "name": "Codex モデルプロバイダー",
+        "desc": "Codex 設定にあるモデルプロバイダー ID（例: openai）。チャットとモデル取得に適用します。空欄なら CLI の既定値を使います。"
       },
       "installationMethod": {
         "name": "インストール方式",

@@ -304,9 +304,9 @@
       }
     },
     "codex": {
-      "profile": {
-        "name": "Perfil do Codex",
-        "desc": "Nome de perfil opcional da CLI, como personal. Conversas e descoberta de modelos iniciam o Codex com --profile. Deixe em branco para usar o padrão da CLI."
+      "modelProvider": {
+        "name": "Provedor de modelos do Codex",
+        "desc": "ID opcional de um provedor de modelos do Codex, como openai. Aplica-se às conversas e à descoberta de modelos. Deixe em branco para usar o padrão da CLI."
       },
       "installationMethod": {
         "name": "Método de instalação",

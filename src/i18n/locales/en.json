@@ -304,9 +304,9 @@
       }
     },
     "codex": {
-      "profile": {
-        "name": "Codex profile",
-        "desc": "Optional CLI profile name, such as personal. Launches Codex with --profile for chats and model discovery. Leave empty to use the CLI default."
+      "modelProvider": {
+        "name": "Codex model provider",
+        "desc": "Optional model provider ID from your Codex config, such as openai. Applies to chats and model discovery. Leave empty to use the CLI default."
       },
       "installationMethod": {
         "name": "Installation method",

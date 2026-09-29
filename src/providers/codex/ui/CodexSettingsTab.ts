@@ -222,14 +222,14 @@ export function createCodexSettingsTabRenderer(
       refreshInstallationMethodUI();
 
       new Setting(container)
-        .setName(t('settings.codex.profile.name'))
-        .setDesc(t('settings.codex.profile.desc'))
+        .setName(t('settings.codex.modelProvider.name'))
+        .setDesc(t('settings.codex.modelProvider.desc'))
         .addText(text => text
-          .setPlaceholder(t('settings.codex.profile.name'))
-          .setValue(codexSettings.profile)
+          .setPlaceholder(t('settings.codex.modelProvider.name'))
+          .setValue(codexSettings.modelProvider)
           .onChange(async value => {
             await context.plugin.applyProviderRuntimeSettings(['codex'], settings => {
-              updateCodexProviderSettings(settings, { profile: value });
+              updateCodexProviderSettings(settings, { modelProvider: value });
             });
           }));
 
