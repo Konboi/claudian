@@ -304,6 +304,10 @@
       }
     },
     "codex": {
+      "profile": {
+        "name": "Profil Codex",
+        "desc": "Nom de profil CLI facultatif, par exemple personal. Les discussions et la recherche de modèles lancent Codex avec --profile. Laissez vide pour utiliser la valeur par défaut de la CLI."
+      },
       "installationMethod": {
         "name": "Méthode d’installation",
         "desc": "Comment Claudian doit lancer Codex sous Windows. Windows natif utilise un chemin d’exécutable Windows. WSL lance la CLI Linux dans une distribution choisie.",

@@ -304,6 +304,10 @@
       }
     },
     "codex": {
+      "profile": {
+        "name": "Codex profile",
+        "desc": "Optional CLI profile name, such as personal. Launches Codex with --profile for chats and model discovery. Leave empty to use the CLI default."
+      },
       "installationMethod": {
         "name": "Installation method",
         "desc": "How Claudian should launch Codex on Windows. Native Windows uses a Windows executable path. WSL launches the Linux CLI inside a selected distro.",

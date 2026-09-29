@@ -13,6 +13,7 @@ import type { ProviderHost } from '../../../core/providers/ProviderHost';
 import type { ProviderTransitionOwnerContext } from '../../../core/providers/types';
 import { getVaultPath } from '../../../utils/path';
 import { computeCodexEnvHash } from '../env/CodexSettingsReconciler';
+import { getCodexProviderSettings } from '../settings';
 import { resolveCodexExecutionTargetAsync } from './CodexExecutionTargetResolver';
 
 const CATALOG_FINGERPRINT_VERSION = '2';
@@ -58,7 +59,8 @@ export async function computeCodexCatalogFingerprint(
     executionTarget.distroName ?? '',
   ].join(':');
   const envText = getRuntimeEnvironmentText(settings, 'codex');
-  const envHash = computeCodexEnvHash(envText);
+  const profile = getCodexProviderSettings(settings).profile;
+  const envHash = computeCodexEnvHash(envText, profile ? { profile } : {});
 
   return buildCodexCatalogFingerprint({
     resolvedCliCommand,

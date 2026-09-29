@@ -38,6 +38,14 @@ describe('codex settings', () => {
     expect(settings.providerConfigs.codex).not.toHaveProperty('customModels');
   });
 
+  it('persists a trimmed Codex profile and rejects malformed stored values', () => {
+    const settings = { providerConfigs: { codex: {} as Record<string, unknown> } };
+    updateCodexProviderSettings(settings, { profile: ' personal ' });
+    expect(getCodexProviderSettings(settings).profile).toBe('personal');
+    settings.providerConfigs.codex.profile = ['company'];
+    expect(getCodexProviderSettings(settings).profile).toBe('');
+  });
+
   it.each([undefined, null, '', 'invalid', 42, {}, []])('normalizes invalid response style %p to pragmatic', (responseStyle) => {
     const settings = { providerConfigs: { codex: { responseStyle } } };
     expect(getCodexProviderSettings(settings)).toMatchObject({ responseStyle: 'pragmatic' });

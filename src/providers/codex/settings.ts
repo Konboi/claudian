@@ -33,6 +33,7 @@ export interface CodexProviderConfig {
   enabled: boolean;
   safeMode: CodexSafeMode;
   cliPath: string;
+  profile: string;
   cliPathsByHost: HostnameCLIPaths;
   discoveredModels: CodexDiscoveredModel[];
   modelAliases: Record<string, string>;
@@ -101,6 +102,7 @@ export interface CodexProviderSettings {
   enabled: CodexProviderConfig['enabled'];
   safeMode: CodexProviderConfig['safeMode'];
   cliPath: CodexProviderConfig['cliPath'];
+  profile: CodexProviderConfig['profile'];
   cliPathsByHost: CodexProviderConfig['cliPathsByHost'];
   discoveredModels: CodexProviderConfig['discoveredModels'];
   modelAliases: CodexProviderConfig['modelAliases'];
@@ -122,6 +124,7 @@ export const DEFAULT_CODEX_PROVIDER_CONFIG: Readonly<CodexProviderConfig> = Obje
   enabled: false,
   safeMode: 'workspace-write',
   cliPath: '',
+  profile: '',
   cliPathsByHost: {},
   discoveredModels: [],
   modelAliases: {},
@@ -316,6 +319,7 @@ function getCodexStoredConfig(
       config.cliPath,
       DEFAULT_CODEX_PROVIDER_CONFIG.cliPath,
     ),
+    profile: normalizeOptionalString(config.profile),
     cliPathsByHost,
     discoveredModels,
     modelAliases: pruneCodexModelAliases(
@@ -469,6 +473,7 @@ export function updateCodexProviderSettings(
   const next: CodexProviderSettings = {
     ...current,
     ...updates,
+    profile: normalizeOptionalString(updates.profile ?? current.profile),
     discoveredModels,
     modelAliases,
     visibleModels,
@@ -486,6 +491,7 @@ export function updateCodexProviderSettings(
     enabled: next.enabled,
     safeMode: next.safeMode,
     cliPath: next.cliPath,
+    profile: normalizeOptionalString(next.profile),
     cliPathsByHost: next.cliPathsByHost,
     discoveredModels: next.discoveredModels,
     modelAliases: next.modelAliases,

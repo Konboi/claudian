@@ -1,3 +1,4 @@
+import { getCodexProviderSettings } from '../settings';
 import {
   inferWslDistroFromWindowsPath,
   resolveCodexExecutionTarget,
@@ -56,13 +57,18 @@ export function buildCodexLaunchSpec(
   }
 
   const resolvedCliCommand = options.resolvedCliCommand?.trim() || 'codex';
+  const profile = getCodexProviderSettings(options.settings).profile;
+  const cliArgs = options.cliArgs ?? [
+    ...(profile ? ['--profile', profile] : []),
+    ...CODEX_APP_SERVER_ARGS,
+  ];
   if (target.method === 'wsl') {
     const args = [
       ...(target.distroName ? ['--distribution', target.distroName] : []),
       '--cd',
       targetCwd,
       resolvedCliCommand,
-      ...(options.cliArgs ?? CODEX_APP_SERVER_ARGS),
+      ...cliArgs,
     ];
 
     return {
@@ -79,7 +85,7 @@ export function buildCodexLaunchSpec(
   return {
     target,
     command: resolvedCliCommand,
-    args: [...(options.cliArgs ?? CODEX_APP_SERVER_ARGS)],
+    args: [...cliArgs],
     spawnCwd,
     targetCwd,
     env: options.env,

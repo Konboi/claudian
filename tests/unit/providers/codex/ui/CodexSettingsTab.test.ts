@@ -456,6 +456,21 @@ describe('CodexSettingsTab', () => {
     expect(checkedDistro).toBe('Debian');
   });
 
+  it('stores the selected CLI profile through the Codex runtime transition', async () => {
+    Object.defineProperty(process, 'platform', { value: 'darwin' });
+    const plugin = createPlugin();
+    createSettingsRenderer().render(createContainer(), createContext(plugin));
+
+    const input = findSetting('Codex profile').textComponents[0];
+    expect(input.value).toBe('');
+    await input.onChangeCallback?.(' personal ');
+
+    expect(plugin.settings.providerConfigs.codex.profile).toBe('personal');
+    expect(plugin.applyProviderRuntimeSettings).toHaveBeenCalledWith(
+      ['codex'], expect.any(Function),
+    );
+  });
+
   it('renders the default Codex settings layout and model controls', () => {
     Object.defineProperty(process, 'platform', { value: 'darwin' });
     const plugin = createPlugin();
