@@ -8,6 +8,18 @@ import {
 } from '@/providers/codex/env/CodexSettingsReconciler';
 
 describe('codexSettingsReconciler', () => {
+  it('invalidates native bindings when the Codex model provider changes', () => {
+    const settings: Record<string, unknown> = {
+      providerConfigs: { codex: { enabled: true, modelProvider: 'amazon-bedrock', environmentHash: '' } },
+    };
+    codexSettingsReconciler.reconcileModelWithEnvironment(settings, []);
+    const conversation = { providerId: 'codex', sessionId: 'native-session', messages: [] } as unknown as Conversation;
+    (settings.providerConfigs as any).codex.modelProvider = 'openai';
+
+    expect(codexSettingsReconciler.reconcileModelWithEnvironment(settings, [conversation]))
+      .toMatchObject({ changed: true, invalidatedConversations: [conversation] });
+    expect(conversation.sessionId).toBeNull();
+  });
   it.each(['CODEX_HOME', 'HOME', 'USERPROFILE'])('invalidates native bindings when configured %s changes or is removed', key => {
     const settings: Record<string, unknown> = {
       providerConfigs: { codex: { enabled: true, environmentVariables: `${key}=/old-home` } },

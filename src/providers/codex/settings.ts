@@ -33,6 +33,7 @@ export interface CodexProviderConfig {
   enabled: boolean;
   safeMode: CodexSafeMode;
   cliPath: string;
+  modelProvider: string;
   cliPathsByHost: HostnameCLIPaths;
   discoveredModels: CodexDiscoveredModel[];
   modelAliases: Record<string, string>;
@@ -101,6 +102,7 @@ export interface CodexProviderSettings {
   enabled: CodexProviderConfig['enabled'];
   safeMode: CodexProviderConfig['safeMode'];
   cliPath: CodexProviderConfig['cliPath'];
+  modelProvider: CodexProviderConfig['modelProvider'];
   cliPathsByHost: CodexProviderConfig['cliPathsByHost'];
   discoveredModels: CodexProviderConfig['discoveredModels'];
   modelAliases: CodexProviderConfig['modelAliases'];
@@ -122,6 +124,7 @@ export const DEFAULT_CODEX_PROVIDER_CONFIG: Readonly<CodexProviderConfig> = Obje
   enabled: false,
   safeMode: 'workspace-write',
   cliPath: '',
+  modelProvider: '',
   cliPathsByHost: {},
   discoveredModels: [],
   modelAliases: {},
@@ -316,6 +319,7 @@ function getCodexStoredConfig(
       config.cliPath,
       DEFAULT_CODEX_PROVIDER_CONFIG.cliPath,
     ),
+    modelProvider: normalizeOptionalString(config.modelProvider),
     cliPathsByHost,
     discoveredModels,
     modelAliases: pruneCodexModelAliases(
@@ -372,6 +376,7 @@ function projectStoredCodexConfigNormalization(
     }
   }
   delete projected.customModels;
+  delete projected.profile;
   return projected;
 }
 
@@ -400,6 +405,7 @@ export function normalizeCodexStoredConfig(
     wslDistroOverridesByHost,
   };
   delete normalizedConfig.customModels;
+  delete normalizedConfig.profile;
 
   const projectedConfig = projectStoredCodexConfigNormalization(originalConfig, normalizedConfig);
   return {
@@ -469,6 +475,7 @@ export function updateCodexProviderSettings(
   const next: CodexProviderSettings = {
     ...current,
     ...updates,
+    modelProvider: normalizeOptionalString(updates.modelProvider ?? current.modelProvider),
     discoveredModels,
     modelAliases,
     visibleModels,
@@ -486,6 +493,7 @@ export function updateCodexProviderSettings(
     enabled: next.enabled,
     safeMode: next.safeMode,
     cliPath: next.cliPath,
+    modelProvider: next.modelProvider,
     cliPathsByHost: next.cliPathsByHost,
     discoveredModels: next.discoveredModels,
     modelAliases: next.modelAliases,

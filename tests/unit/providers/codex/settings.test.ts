@@ -38,6 +38,21 @@ describe('codex settings', () => {
     expect(settings.providerConfigs.codex).not.toHaveProperty('customModels');
   });
 
+  it('persists a trimmed Codex model provider and rejects malformed stored values', () => {
+    const settings = { providerConfigs: { codex: {} as Record<string, unknown> } };
+    updateCodexProviderSettings(settings, { modelProvider: ' openai ' });
+    expect(getCodexProviderSettings(settings).modelProvider).toBe('openai');
+    settings.providerConfigs.codex.modelProvider = ['company'];
+    expect(getCodexProviderSettings(settings).modelProvider).toBe('');
+  });
+
+  it('removes the unsupported app-server profile setting from stored config', () => {
+    const settings = { providerConfigs: { codex: { profile: 'personal' } } };
+    const result = normalizeCodexStoredConfig(settings);
+    expect(result.changed).toBe(true);
+    expect(result.config).not.toHaveProperty('profile');
+  });
+
   it.each([undefined, null, '', 'invalid', 42, {}, []])('normalizes invalid response style %p to pragmatic', (responseStyle) => {
     const settings = { providerConfigs: { codex: { responseStyle } } };
     expect(getCodexProviderSettings(settings)).toMatchObject({ responseStyle: 'pragmatic' });

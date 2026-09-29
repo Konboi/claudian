@@ -304,6 +304,10 @@
       }
     },
     "codex": {
+      "modelProvider": {
+        "name": "Codex 模型提供商",
+        "desc": "可选的 Codex 模型提供商 ID，例如 openai。适用于聊天和模型发现。留空则使用 CLI 默认值。"
+      },
       "installationMethod": {
         "name": "安装方式",
         "desc": "Claudian 在 Windows 上启动 Codex 的方式。原生 Windows 使用 Windows 可执行文件路径；WSL 会在所选发行版内启动 Linux CLI。",

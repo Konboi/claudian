@@ -456,6 +456,21 @@ describe('CodexSettingsTab', () => {
     expect(checkedDistro).toBe('Debian');
   });
 
+  it('stores the selected model provider through the Codex runtime transition', async () => {
+    Object.defineProperty(process, 'platform', { value: 'darwin' });
+    const plugin = createPlugin();
+    createSettingsRenderer().render(createContainer(), createContext(plugin));
+
+    const input = findSetting('Codex model provider').textComponents[0];
+    expect(input.value).toBe('');
+    await input.onChangeCallback?.(' openai ');
+
+    expect(plugin.settings.providerConfigs.codex.modelProvider).toBe('openai');
+    expect(plugin.applyProviderRuntimeSettings).toHaveBeenCalledWith(
+      ['codex'], expect.any(Function),
+    );
+  });
+
   it('renders the default Codex settings layout and model controls', () => {
     Object.defineProperty(process, 'platform', { value: 'darwin' });
     const plugin = createPlugin();

@@ -304,6 +304,10 @@
       }
     },
     "codex": {
+      "modelProvider": {
+        "name": "Proveedor de modelos de Codex",
+        "desc": "ID opcional de un proveedor de modelos de Codex, como openai. Se aplica a los chats y a la detección de modelos. Déjalo vacío para usar el valor predeterminado de la CLI."
+      },
       "installationMethod": {
         "name": "Método de instalación",
         "desc": "Cómo debe iniciar Claudian Codex en Windows. Windows nativo usa una ruta de ejecutable de Windows. WSL inicia la CLI de Linux dentro de una distribución seleccionada.",

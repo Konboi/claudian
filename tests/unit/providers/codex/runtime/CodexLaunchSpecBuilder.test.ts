@@ -44,6 +44,30 @@ describe('buildCodexLaunchSpec', () => {
     });
   });
 
+  it('starts the app server with the configured model provider on native and WSL targets', () => {
+    const settings = { providerConfigs: { codex: { modelProvider: 'openai' } } };
+    const native = buildCodexLaunchSpec({
+      settings,
+      resolvedCliCommand: 'codex',
+      hostVaultPath: '/repo',
+      env: {},
+      hostPlatform: 'darwin',
+    });
+    const wsl = buildCodexLaunchSpec({
+      settings,
+      resolvedCliCommand: 'codex',
+      hostVaultPath: 'C:\\repo',
+      env: {},
+      executionTarget: { method: 'wsl', platformFamily: 'unix', platformOs: 'linux', distroName: 'Ubuntu' },
+    });
+
+    expect(native.args).toEqual(['app-server', '--listen', 'stdio://', '--config', 'model_provider="openai"']);
+    expect(wsl.args).toEqual([
+      '--distribution', 'Ubuntu', '--cd', '/mnt/c/repo', 'codex',
+      'app-server', '--listen', 'stdio://', '--config', 'model_provider="openai"',
+    ]);
+  });
+
   it('uses the same WSL shell and working directory for an auxiliary CLI command', () => {
     const spec = buildCodexLaunchSpec({
       settings: {},

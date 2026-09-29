@@ -304,6 +304,10 @@
       }
     },
     "codex": {
+      "modelProvider": {
+        "name": "Codex 模型供應商",
+        "desc": "選填的 Codex 模型供應商 ID，例如 openai。適用於聊天和模型探索。留空則使用 CLI 預設值。"
+      },
       "installationMethod": {
         "name": "安裝方式",
         "desc": "Claudian 在 Windows 上啟動 Codex 的方式。原生 Windows 使用 Windows 可執行檔路徑；WSL 會在所選發行版內啟動 Linux CLI。",

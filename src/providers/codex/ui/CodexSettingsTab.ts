@@ -221,6 +221,18 @@ export function createCodexSettingsTabRenderer(
 
       refreshInstallationMethodUI();
 
+      new Setting(container)
+        .setName(t('settings.codex.modelProvider.name'))
+        .setDesc(t('settings.codex.modelProvider.desc'))
+        .addText(text => text
+          .setPlaceholder(t('settings.codex.modelProvider.name'))
+          .setValue(codexSettings.modelProvider)
+          .onChange(async value => {
+            await context.plugin.applyProviderRuntimeSettings(['codex'], settings => {
+              updateCodexProviderSettings(settings, { modelProvider: value });
+            });
+          }));
+
       // --- Models ---
 
       new Setting(container).setName(t('settings.models')).setHeading();
